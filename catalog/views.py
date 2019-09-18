@@ -1,6 +1,19 @@
 from django.shortcuts import render
 from catalog.models import Book, Author, BookInstance, Genre
+from django.views import generic
 # Create your views here.
+
+
+class BookListView(generic.ListView):
+    model = Book
+
+    # your own name for the list as a template variable
+    context_object_name = 'my_book_list'
+    queryset = Book.objects.all()
+
+
+class BookDetailView(generic.DetailView):
+    model = Book
 
 
 def index(request):
