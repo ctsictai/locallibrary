@@ -4,18 +4,6 @@ from django.views import generic
 # Create your views here.
 
 
-class BookListView(generic.ListView):
-    model = Book
-
-    # your own name for the list as a template variable
-    context_object_name = 'my_book_list'
-    queryset = Book.objects.all()
-
-
-class BookDetailView(generic.DetailView):
-    model = Book
-
-
 def index(request):
     # View function for home page of site.
 
@@ -47,3 +35,21 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'catalog/index.html', context=context)
+
+
+class BookListView(generic.ListView):  # generic list view - 조건에 맞는 여러 객체를 리스트로
+    model = Book
+    paginate_by = 10
+
+
+class BookDetailView(generic.DetailView):
+    model = Book
+
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 10
+
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
