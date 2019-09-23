@@ -24,6 +24,11 @@ def index(request):
     # specific word in genre - "human"
     specific_num_genre = Genre.objects.filter(name__icontains='Human').count()
 
+# Number of visits to this view, as counted in the session variable.
+    # 방문자 숫자 체크하는 세션
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+
     context = {
         'num_books': num_books,
         'num_instances': num_instances,
@@ -31,6 +36,7 @@ def index(request):
         'num_authors': num_authors,
         'specific_num_books': specific_num_books,
         'specific_num_genre': specific_num_genre,
+        'num_visits': num_visits,
     }
 
     # Render the HTML template index.html with the data in the context variable
